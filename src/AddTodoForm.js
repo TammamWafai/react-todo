@@ -16,6 +16,7 @@ const AddTodoForm = ({ onAddTodo }) => {
         if (todoTitle !== "") {
 
             onAddTodo({ id: Date.now(), title: todoTitle })
+
             setTodoTitle("")
             // event.target.title.focus()
 
