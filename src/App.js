@@ -1,6 +1,10 @@
+
+
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import TodoList from './TodoList';
 import AddTodoForm from './AddTodoForm';
+
 
 function App() {
   const [todoList, setTodoList] = useState([]);
@@ -50,10 +54,6 @@ function App() {
     localStorage.setItem('savedTodoList', JSON.stringify(todoList));
   }, [todoList, isLoading]);
 
-  // const removeTodo = (id) => {
-  //   const newList = todoList.filter(item => item.id !== id);
-  //   setTodoList(newList);
-  // };
 
   const removeTodo = async (id) => {
     const options = {
@@ -84,12 +84,31 @@ function App() {
     setTodoList(todoList => [...todoList, newTodo]);
   };
 
+  //   return (
+  //     <>
+  //       <h1>Todo list</h1>
+  //       <AddTodoForm onAddTodo={addTodo} />
+  //       {isLoading ? <p>Loading...</p> : <TodoList todoList={todoList} onRemoveTodo={removeTodo} />}
+  //     </>
+  //   );
+  // }
+
   return (
-    <>
-      <h1>Todo list</h1>
-      <AddTodoForm onAddTodo={addTodo} />
-      {isLoading ? <p>Loading...</p> : <TodoList todoList={todoList} onRemoveTodo={removeTodo} />}
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <h1>Todo list</h1>
+              <AddTodoForm onAddTodo={addTodo} />
+              {isLoading ? <p>Loading...</p> : <TodoList todoList={todoList} onRemoveTodo={removeTodo} />}
+            </>
+          }
+        />
+        <Route path="/new" element={<h1>New Todo List</h1>} /> {/* New Route */}
+      </Routes>
+    </BrowserRouter>
   );
 }
 
