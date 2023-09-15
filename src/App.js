@@ -1,10 +1,8 @@
-
-
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import TodoList from './TodoList';
-import AddTodoForm from './AddTodoForm';
-
+import React, { useState, useEffect } from "react";
+import myStyles from "./myStyles.module.css";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import TodoList from "./TodoList";
+import AddTodoForm from "./AddTodoForm";
 
 function App() {
   const [todoList, setTodoList] = useState([]);
@@ -12,7 +10,7 @@ function App() {
 
   async function fetchData() {
     const options = {
-      method: 'GET',
+      method: "GET",
       headers: {
         Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
       },
@@ -30,7 +28,7 @@ function App() {
       const data = await response.json();
       // console.log(data); // Observe Airtable API response
 
-      const todos = data.records.map(record => ({
+      const todos = data.records.map((record) => ({
         title: record.fields.title,
         id: record.id,
       }));
@@ -51,13 +49,12 @@ function App() {
   useEffect(() => {
     // if (isLoading === false) {
     // }
-    localStorage.setItem('savedTodoList', JSON.stringify(todoList));
+    localStorage.setItem("savedTodoList", JSON.stringify(todoList));
   }, [todoList, isLoading]);
-
 
   const removeTodo = async (id) => {
     const options = {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
         Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
       },
@@ -72,16 +69,15 @@ function App() {
         throw new Error(`Error: ${response.status}`);
       }
 
-      const newList = todoList.filter(item => item.id !== id);
+      const newList = todoList.filter((item) => item.id !== id);
       setTodoList(newList);
     } catch (error) {
       console.error(error.message);
     }
   };
 
-
   const addTodo = (newTodo) => {
-    setTodoList(todoList => [...todoList, newTodo]);
+    setTodoList((todoList) => [...todoList, newTodo]);
   };
 
   //   return (
@@ -95,6 +91,20 @@ function App() {
 
   return (
     <BrowserRouter>
+      <nav className={myStyles.navigation}>
+        <ul className={myStyles.navList}>
+          <li className={myStyles.navItem}>
+            <Link to="/">
+              <button>Home</button>
+            </Link>
+          </li>
+          <li className={myStyles.navItem}>
+            <Link to="/new">
+              <button>New</button>
+            </Link>
+          </li>
+        </ul>
+      </nav>
       <Routes>
         <Route
           path="/"
@@ -102,7 +112,11 @@ function App() {
             <>
               <h1>Todo list</h1>
               <AddTodoForm onAddTodo={addTodo} />
-              {isLoading ? <p>Loading...</p> : <TodoList todoList={todoList} onRemoveTodo={removeTodo} />}
+              {isLoading ? (
+                <p>Loading...</p>
+              ) : (
+                <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
+              )}
             </>
           }
         />
