@@ -29,11 +29,11 @@ function App() {
       // console.log(data); // Observe Airtable API response
 
       const todos = data.records.map((record) => ({
-        title: record.fields.title,
         id: record.id,
+        title: record.fields.title,
       }));
 
-      // console.log(todos); // Observe transformed todos array
+      console.log(...todos); // Observe transformed todos array
 
       setTodoList(todos);
       setIsLoading(false);
@@ -56,6 +56,7 @@ function App() {
     const options = {
       method: "DELETE",
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
       },
     };
@@ -71,6 +72,7 @@ function App() {
 
       const newList = todoList.filter((item) => item.id !== id);
       setTodoList(newList);
+      fetchData();
     } catch (error) {
       console.error(error.message);
     }
@@ -79,15 +81,6 @@ function App() {
   const addTodo = (newTodo) => {
     setTodoList((todoList) => [...todoList, newTodo]);
   };
-
-  //   return (
-  //     <>
-  //       <h1>Todo list</h1>
-  //       <AddTodoForm onAddTodo={addTodo} />
-  //       {isLoading ? <p>Loading...</p> : <TodoList todoList={todoList} onRemoveTodo={removeTodo} />}
-  //     </>
-  //   );
-  // }
 
   return (
     <BrowserRouter>
@@ -120,7 +113,7 @@ function App() {
             </>
           }
         />
-        <Route path="/new" element={<h1>New Todo List</h1>} /> {/* New Route */}
+        <Route path="/new" element={<h1>New Todo List</h1>} />
       </Routes>
     </BrowserRouter>
   );

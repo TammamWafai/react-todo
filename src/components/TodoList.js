@@ -9,6 +9,8 @@ import PropTypes from "prop-types";
 // }
 
 function TodoList({ todoList, onRemoveTodo }) {
+  // console.log("todoList", todoList);
+  // console.log("onRemoveTodo", onRemoveTodo);
   return (
     <>
       <ul>

@@ -38,10 +38,11 @@ function AddTodoForm({ onAddTodo }) {
         const addedTodo = {
           id: data.id,
           title: data.fields.title,
-          autoNum: data.fields.autoNum,
         };
-
+        setTodoTitle("");
         onAddTodo(addedTodo);
+        // console.log("addedTodo", addedTodo);
+        // console.log("onAddTodo", onAddTodo);
         setTodoTitle("");
       } catch (error) {
         console.error(error.message);
