@@ -15,6 +15,7 @@ function TodoList({ todoList, onRemoveTodo }) {
         {todoList.map(function (item) {
           return (
             <TodoListItem
+              key={item.id}
               id={item.id}
               todo={item.title}
               onRemoveTodo={onRemoveTodo}

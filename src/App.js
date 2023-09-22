@@ -44,7 +44,7 @@ function App() {
 
   useEffect(() => {
     fetchData(); // Call fetchData instead of the previous promise-based code
-  }, [todoList]);
+  }, []);
 
   useEffect(() => {
     // if (isLoading === false) {
