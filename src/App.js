@@ -8,6 +8,17 @@ function App() {
   const [todoList, setTodoList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  const [sortBy, setSortBy] = useState("title");
+  const [sortDir, setSortDir] = useState("asc");
+
+  const toggleSortDirection = () => {
+    setSortDir(sortDir === "asc" ? "desc" : "asc");
+  };
+
+  const handleSortChange = (e) => {
+    setSortBy(e.target.value);
+  };
+
   async function fetchData() {
     const options = {
       method: "GET",
@@ -16,7 +27,7 @@ function App() {
       },
     };
 
-    const url = `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${process.env.REACT_APP_TABLE_NAME}`;
+    const url = `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${process.env.REACT_APP_TABLE_NAME}?view=Grid%20view&sort[0][field]=${sortBy}&sort[0][direction]=${sortDir}`;
 
     try {
       const response = await fetch(url, options);
@@ -43,8 +54,13 @@ function App() {
   }
 
   useEffect(() => {
-    fetchData(); // Call fetchData instead of the previous promise-based code
-  }, []);
+    async function fetchDataAndUpdate() {
+      await fetchData();
+    }
+
+    fetchDataAndUpdate();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sortDir, sortBy]);
 
   useEffect(() => {
     // if (isLoading === false) {
@@ -108,7 +124,23 @@ function App() {
               {isLoading ? (
                 <p>Loading...</p>
               ) : (
-                <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
+                <>
+                  <div>
+                    <label htmlFor="sortDropdown">Sort by:</label>
+                    <select
+                      id="sortDropdown"
+                      value={sortBy}
+                      onChange={handleSortChange}
+                    >
+                      <option value="title">Title</option>
+                      <option value="date">Date</option>
+                    </select>
+                    <button onClick={toggleSortDirection}>
+                      {sortDir === "asc" ? "↑" : "↓"}
+                    </button>
+                  </div>
+                  <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
+                </>
               )}
             </>
           }
