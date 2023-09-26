@@ -9,12 +9,15 @@ import PropTypes from "prop-types";
 // }
 
 function TodoList({ todoList, onRemoveTodo }) {
+  // console.log("todoList", todoList);
+  // console.log("onRemoveTodo", onRemoveTodo);
   return (
     <>
       <ul>
         {todoList.map(function (item) {
           return (
             <TodoListItem
+              key={item.id}
               id={item.id}
               todo={item.title}
               onRemoveTodo={onRemoveTodo}
