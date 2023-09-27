@@ -1,5 +1,45 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
 
+/* #sortDiv {
+  margin: 100px;
+  padding: 100px;
+  background-color: red;
+} */
+
+.arrowBtn {
+  font-weight: 900;
+}
+select.decorated option:hover {
+  box-shadow: 0 0 10px 100px #1882a8 inset;
+}
+select {
+  font-size: 16px;
+  margin: 10px;
+  background-color: #cf3b00;
+  color: white;
+  padding: 10px;
+  padding-right: 15px;
+  border-radius: 10px;
+}
+
+select:hover {
+  background-color: red;
+}
+
+option {
+  font-size: 16px;
+  margin: 10px;
+}
+option:hover {
+  background-color: yellow;
+}
+
+option:focus {
+  background-color: blue;
+}
+div {
+  margin-top: 10px;
+}
 ul {
   list-style-type: none;
   margin: 10px;
@@ -9,11 +49,12 @@ ul {
 li {
   font-weight: 900;
   vertical-align: text-top;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: flex-end;
   margin: 10px;
   margin-bottom: 10px;
   margin-left: 10px;
+  display: flex;
 }
 
 /* .nav-link {
@@ -48,7 +89,7 @@ input {
   padding: 10px;
   margin-left: 10px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 10px;
 }
 
 button {
@@ -57,13 +98,19 @@ button {
   padding: 10px;
   margin-left: 10px;
   border: none;
-  border-radius: 4px;
+  border-radius: 10px;
   cursor: pointer;
+}
+
+button:hover {
+  background-color: red;
 }
 
 @media screen and (min-width: 768px) {
   body {
-    width: 100%;
+    padding-left: 25%;
+    padding-right: 25%;
+    width: 50%;
     text-align: center;
     background-color: rgb(0, 82, 85);
     color: white;
@@ -84,6 +131,8 @@ button {
   }
   ul {
     text-align: left;
+    margin: 0px;
+    padding: 0px;
   }
 }
 
@@ -109,4 +158,8 @@ button {
 .navItem {
   gap: 1px;
   padding: 0;
+}
+
+div.divBody {
+  background-color: #000000;
 }
