@@ -37,7 +37,6 @@ function App() {
       }
 
       const data = await response.json();
-      // console.log(data); // Observe Airtable API response
 
       const todos = data.records.map((record) => ({
         id: record.id,
@@ -63,8 +62,6 @@ function App() {
   }, [sortDir, sortBy]);
 
   useEffect(() => {
-    // if (isLoading === false) {
-    // }
     localStorage.setItem("savedTodoList", JSON.stringify(todoList));
   }, [todoList, isLoading]);
 
@@ -119,7 +116,7 @@ function App() {
           path="/"
           element={
             <>
-              <h1>Todo list</h1>
+              <h1>{process.env.REACT_APP_TABLE_NAME}</h1>
               <AddTodoForm onAddTodo={addTodo} />
               {isLoading ? (
                 <p>Loading...</p>

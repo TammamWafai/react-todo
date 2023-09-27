@@ -41,8 +41,6 @@ function AddTodoForm({ onAddTodo }) {
         };
         setTodoTitle("");
         onAddTodo(addedTodo);
-        // console.log("addedTodo", addedTodo);
-        // console.log("onAddTodo", onAddTodo);
         setTodoTitle("");
       } catch (error) {
         console.error(error.message);
