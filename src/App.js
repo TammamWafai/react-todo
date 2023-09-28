@@ -37,7 +37,6 @@ function App() {
       }
 
       const data = await response.json();
-      // console.log(data); // Observe Airtable API response
 
       const todos = data.records.map((record) => ({
         id: record.id,
@@ -63,8 +62,6 @@ function App() {
   }, [sortDir, sortBy]);
 
   useEffect(() => {
-    // if (isLoading === false) {
-    // }
     localStorage.setItem("savedTodoList", JSON.stringify(todoList));
   }, [todoList, isLoading]);
 
@@ -108,8 +105,8 @@ function App() {
             </Link>
           </li>
           <li className={myStyles.navItem}>
-            <Link to="/new">
-              <button>New</button>
+            <Link to="/about">
+              <button>About</button>
             </Link>
           </li>
         </ul>
@@ -118,14 +115,14 @@ function App() {
         <Route
           path="/"
           element={
-            <>
-              <h1>Todo list</h1>
+            <div className="divBody">
+              <h1>{process.env.REACT_APP_TABLE_NAME}</h1>
               <AddTodoForm onAddTodo={addTodo} />
               {isLoading ? (
                 <p>Loading...</p>
               ) : (
                 <>
-                  <div>
+                  <div id="sortDiv">
                     <label htmlFor="sortDropdown">Sort by:</label>
                     <select
                       id="sortDropdown"
@@ -135,17 +132,28 @@ function App() {
                       <option value="title">Title</option>
                       <option value="date">Date</option>
                     </select>
-                    <button onClick={toggleSortDirection}>
-                      {sortDir === "asc" ? "↑" : "↓"}
+                    <button
+                      className={myStyles.arrowBtn}
+                      onClick={toggleSortDirection}
+                    >
+                      {sortDir === "asc" ? "⇅" : "⇅"}
                     </button>
                   </div>
                   <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
                 </>
               )}
+            </div>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <>
+              <h1>Thanks for using my app.</h1>
+              <h1>Tammam Alwafai</h1>
             </>
           }
         />
-        <Route path="/new" element={<h1>New Todo List</h1>} />
       </Routes>
     </BrowserRouter>
   );
